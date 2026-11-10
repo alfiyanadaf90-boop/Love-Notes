@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💗 20 Little Love Notes 💗</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:25px 12px;
+  min-height:100vh;
+  background:#050505;
+  color:#f8dce9;
+  font-family:Arial,sans-serif;
+  text-align:center;
+}
+h1{color:#f39ac3;font-size:clamp(24px,6vw,34px)}
+.subtitle{color:#c9b9c2;margin-bottom:25px}
+.container{max-width:700px;margin:auto}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.note{
+  min-height:120px;
+  border:0;
+  border-radius:20px;
+  background:#ffe3ef;
+  color:#a34d76;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
+.note:hover{transform:translateY(-4px)}
+.heart{display:block;font-size:38px;margin-bottom:9px}
+.closeall{
+  margin-top:22px;
+  width:100%;
+  padding:15px;
+  border-radius:30px;
+  border:1px solid #f39ac3;
+  background:transparent;
+  color:#f8dce9;
+  font-size:16px;
+  cursor:pointer;
+}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000c;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal.show{display:flex}
+.popup{
+  background:#ffe3ef;
+  color:#914467;
+  border-radius:25px;
+  padding:30px 22px;
+  width:100%;
+  max-width:380px;
+  animation:pop .3s ease;
+}
+@keyframes pop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.popup .heart{font-size:48px}
+.popup p{font-size:18px;line-height:1.6}
+.popup button{
+  background:#e95c99;
+  color:white;
+  border:0;
+  padding:12px 25px;
+  border-radius:25px;
+  cursor:pointer;
+}
+@media(max-width:420px){
+  .grid{gap:8px}
+  .note{min-height:105px;font-size:14px}
+  .heart{font-size:32px}
+}
+@media(max-width:320px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>💗 20 Little Love Notes 💗</h1>
+<p class="subtitle">Tap a heart to open a little note.</p>
+
+<div class="grid" id="grid"></div>
+
+<button class="closeall" onclick="closeAll()">
+Close all notes ♡
+</button>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeAll()">
+<div class="popup">
+<div class="heart">💗</div>
+<h2 id="title">A little note</h2>
+<p id="message"></p>
+<button onclick="closeAll()">Close ♡</button>
+</div>
+</div>
+
+<script>
+const messages=[
+"You make ordinary moments feel special. 💗",
+"I hope you remember how appreciated you are.",
+"Your smile can brighten even the cloudiest day.",
+"You deserve kindness and all the good things.",
+"Thank you for being wonderfully you.",
+"Life feels a little brighter with you around.",
+"I hope today gives you a hundred reasons to smile.",
+"Never forget how special you are.",
+"You deserve to be celebrated every day.",
+"You're doing better than you think.",
+"The world is lovelier with you in it.",
+"Always believe in yourself.",
+"Your kindness makes a difference.",
+"You deserve the same care you give others.",
+"May your days be filled with happy surprises.",
+"You don't need to be perfect to be wonderful.",
+"You matter more than you know.",
+"Keep your beautiful heart full of hope.",
+"I'm cheering for you, always.",
+"Never forget that you are appreciated. 💞"
+];
+
+const grid=document.getElementById("grid");
+
+messages.forEach((message,index)=>{
+  const button=document.createElement("button");
+  button.className="note";
+  button.innerHTML='<span class="heart">💗</span>Note '+(index+1);
+  button.onclick=()=>{
+    document.getElementById("title").textContent="Note "+(index+1);
+    document.getElementById("message").textContent=message;
+    document.getElementById("modal").classList.add("show");
+  };
+  grid.appendChild(button);
+});
+
+function closeAll(){
+  document.getElementById("modal").classList.remove("show");
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")closeAll();
+});
+</script>
+</body>
+</html>
