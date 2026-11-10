@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>26 Notes for 26th Birthday 💗</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #080608;
+  color: white;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  padding: 25px 14px 45px;
+}
+
+h1 {
+  color: #ff75b5;
+  font-size: clamp(25px, 6vw, 38px);
+  margin: 18px 0 10px;
+}
+
+.subtitle {
+  color: #f4b5d2;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 850px;
+  margin: auto;
+}
+
+.note {
+  background: linear-gradient(145deg, #ff91c5, #e84c91);
+  color: #50102e;
+  border: 1px solid #ffb4d7;
+  border-radius: 16px;
+  min-height: 95px;
+  padding: 14px 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px #ff4f9b33;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.note:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px #ff4f9b77;
+}
+
+.heart {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 7px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000000d9;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal-content {
+  background: linear-gradient(145deg, #ffe0ef, #ff9dc9);
+  color: #57122f;
+  border-radius: 23px;
+  padding: 28px 22px;
+  width: 100%;
+  max-width: 430px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 0 35px #ff69a8aa;
+  animation: pop .25s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h2 {
+  color: #c52b70;
+  margin-top: 0;
+}
+
+#message {
+  font-size: 18px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.close {
+  background: #d9347e;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 11px 25px;
+  font-size: 15px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.birthday {
+  margin-top: 35px;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff9ac8, #e83e87);
+  color: #50102e;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 20px #ff5a9d55;
+}
+
+.footer {
+  color: #ff9ac8;
+  margin-top: 22px;
+  font-size: 13px;
+}
+
+@media (max-width: 500px) {
+  .grid { grid-template-columns: repeat(3, 1fr); gap: 9px; }
+  .note { min-height: 85px; font-size: 14px; }
+  #message { font-size: 16px; }
+}
+
+@media (max-width: 330px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>💗 26 Notes for 26th Birthday 💗</h1>
+<p class="subtitle">Tap a heart to open a little note, jaan ❤️</p>
+
+<div class="grid" id="notesGrid"></div>
+
+<button class="birthday" onclick="showBirthday()">
+  Happy Birthday my love 🎂💕
+</button>
+
+<p class="footer">Made with endless love ❤️</p>
+
+<div class="modal" id="modal" onclick="outsideClose(event)">
+  <div class="modal-content">
+    <h2 id="noteTitle">Note 1 💗</h2>
+    <div id="message"></div>
+    <button class="close" onclick="closeNote()">Close 💕</button>
+  </div>
+</div>
+
+<script>
+const notes = [
+`Jaan /Jaaneman/ Jaan-e-jigar Happy Birthday cutu 😘`,
+
+`Me Jabse tujhe janti hu Jab pehli baar baat ki thi tabse he tere naam se pyar hua tha pehli dafa fir tujhse fir tere har baat se jabse he chahti hu`,
+
+`Tere sath he hamesha rahu sochti hu ek baar be tere alawa kisi or ke sath rehne ki khwahish nahi hui❤️`,
+
+`Mujhe tu hai to me hu 🥰 Tu mere family hai or sabse pehle tu he hai mere liyee 💋🫂`,
+
+`Tu mera hero hai koi kuch be bole mujhe tu pyara lagta mera dil hai tu toh tujhe to me bchpan se chahti hu 🫂 Tu paida he mere liye hua hai ❤️`,
+
+`Itna sath diye hai ek dusre ka to aakhir tak sath denge gusse or ego ke vjhse ya ek dusre ke vjhse me khona nhi chahti tujhe kabi tu be dhyaan rkh kam gussa ho me be try krugi kam gussa krugi 💋`,
+
+`Family vo alag krege vo unse lad skti hu me par me tere sath nahi jhagda kar sakti hu dusre kitna be koshish kre ham alag nahi honge 🥺`,
+
+`Mere baat suna kar acha hoga tere liye khush rahega 🤨😘 Me hamesha dua krugi tere liye jaanu ❤️`,
+
+`Me milna chahti hu par ky kru bebas hu or me tujhe sab khushiya dena chahti hu 😘`,
+
+`Mera handsome boy 😘
+Sexy boy 🥵 sweeta 😙 cutu 😘 Shona 😋`,
+
+`Mujhe To aapki aakhein ,Aapke lips , Aapke body , Aapke hair, Aapke teeth , Aapke nose sab kuch 😋`,
+
+`Tu mujhe apna lagta mujhe psnd tu mujhe laad krta tb 😘`,
+
+`Mujhe mere har sapne tere sath pure krne hai mujhe disappoint mat kr kabi🫂`,
+
+`Tere se saare umeed hai tu mere umeed nhi rkha to me Kidr jaogi 😔`,
+
+`Thoda sambhalke lete ja na mko. Me choti hu na kyu mere ko darate rht 😔🫂`,
+
+`Mere se baat krte ja mujhe lad krte ja mujh nhi to kisko bolega sab 🤨❤️`,
+
+`Me janti hu ek din apna ghr hoga car hoga bcche hoge sab hoga 😘🫂`,
+
+`Me bolti nhi zyada tere tarah par I am proud of you 😘🥰🫂😋`,
+
+`Mujhe aapki personality pasand hai 😽`,
+
+`Tu mujhe bhool mt me hmesha tere ache bure time me sath dugi or tune be mera sath diya hai hmesha 🫂😙`,
+
+`Choti ti jabse mujhe kuch be maar laga me tere paas ati hu kyuki 🥺tu he haina mujhe dekhn wala isliye khudka khyl rkh or mera be 😚`,
+
+`Me har promise pure krugi kabi na ki ho to maaf kr 🙃😟`,
+
+`Gusse me jitni bar be dil dukhai hu uske liye be maar kr jaan mujhe pta hai me Boht bura bolti hu or tu sab sunke leta me tko jo bhi bolti hu vo mean nahi karti me bas chahti hu ki jitna mujhe hurt hua utna tujhe ho isliye bs baki me jo be bolti hu dil pe mat lo😔🫂`,
+
+`Me aapse bohot Mohabbat/pyar/ Ishq sab aapse krti hu🥰😘❤️`,
+
+`Tu mujhe bola ta 25 me shadi hogi apni pr koi bat nhi 26 me to hogi he jaana pakka next birthday dono ke satme rhega hum In sha Allah ❤️`,
+
+`Allah 🤲🏻Tujhe achi sehat de , Hamesha khush rahe ,Hamesha mera rakhe mere liye tere dil me hamesha narmi or mohabbat ho , Apne 4 bacche ho , Bohat saara Paisa de , Acha ghar ho , Acha acha khane ho hmesha Or jo be tere khwaish ho vo pure ho , Ameen 🥰😘❤️`
+];
+
+const grid = document.getElementById("notesGrid");
+
+notes.forEach((note, index) => {
+  const card = document.createElement("button");
+  card.className = "note";
+  card.innerHTML = `<span class="heart">💗</span>Note ${index + 1}`;
+  card.onclick = () => openNote(index);
+  grid.appendChild(card);
+});
+
+function openNote(index) {
+  document.getElementById("noteTitle").textContent =
+    `Note ${index + 1} 💗`;
+  document.getElementById("message").textContent = notes[index];
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeNote() {
+  document.getElementById("modal").style.display = "none";
+}
+
+function outsideClose(event) {
+  if (event.target.id === "modal") closeNote();
+}
+
+function showBirthday() {
+  document.getElementById("noteTitle").textContent = "Happy Birthday my love 🎂💕";
+  document.getElementById("message").textContent =
+    "May Allah bless you with happiness, health, success and endless love. Ameen ❤️";
+  document.getElementById("modal").style.display = "flex";
+}
+</script>
+
+</body>
+</html>
